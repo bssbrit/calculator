@@ -1,8 +1,9 @@
 //variaveis
 
-let number1 = 2;
-let number2 = 2;
-let operator = "multiply";
+let number1 = "";
+let number2 = "";
+let operator = " ";
+
 // funções de operações
 function soma(x, y) {
   return x + y;
@@ -64,30 +65,34 @@ Fazer com que cada numero clicado apareça no painel
 
 let botoesNumeros = document.querySelectorAll(".numero");
 let painel = document.querySelector(".painel");
+let painelSelecionados = document.querySelector(".painelAnterior");
+let operators = document.querySelectorAll(".operator");
 
 botoesNumeros.forEach((numero) => {
   numero.addEventListener("click", function (e) {
     enviarDisplay(e.target.textContent);
+    painel.textContent = number1;
   });
 });
+
+operators.forEach((op) => {
+  op.addEventListener("click", function (e) {
+    handleOperator(e.target.textContent);
+    painelSelecionados.textContent = number2 + " " + operator;
+    painel.textContent = number1;
+  });
+});
+
+function handleOperator(op) {
+  operator = op;
+  number2 = number1;
+  number1 = " ";
+  console.log(op);
+}
 
 enviarDisplay = (num) => {
-  painel.textContent = num;
+  if (number1.length <= 5) {
+    number1 += num;
+  }
   console.log(num);
 };
-
-/*
-let botoesNumeros = document.querySelectorAll(".numero");
-let painel = document.querySelector(".painel");
-
-botoesNumeros.forEach((numero) => {
-  numero.addEventListener("click", function () {
-    console.log("hi");
-    enviarDisplay(botoesNumeros[1].textContent);
-  });
-});
-
-enviarDisplay = (numero) => {
-  console.log(numero);
-};
-*/
