@@ -32,17 +32,14 @@ console.log(division(4, 2));
 */
 
 function operate(x, y) {
-  if (operator == "soma") {
+  if (operator == "+") {
     return soma(x, y);
-  } else if (operator == "subtraction") {
+  } else if (operator == "-") {
     return subtraction(x, y);
-    onsole.log(subtraction(x, y));
-  } else if (operator == "multiply") {
+  } else if (operator == "X") {
     return multiply(x, y);
-    // console.log(multiply(x, y));
-  } else if (operator == "division") {
+  } else if (operator == "/") {
     return division(x, y);
-    //console.log(division(x, y));
   }
 }
 
@@ -96,3 +93,22 @@ enviarDisplay = (num) => {
   }
   console.log(num);
 };
+
+let clear = document.querySelector(".clear");
+clear.addEventListener("click", function () {
+  number1 = "";
+  number2 = "";
+  operator = "";
+  painel.textContent = number1;
+  painelSelecionados.textContent = number1;
+});
+
+let equal = document.querySelector(".equal");
+equal.addEventListener("click", function () {
+  numeroUno = Number(number1);
+  numeroDos = Number(number2);
+  let resultado = operate(numeroDos, numeroUno);
+  number1 = String(resultado);
+  painel.textContent = number1;
+  painelSelecionados.textContent = " ";
+});
