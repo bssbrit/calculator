@@ -1,8 +1,8 @@
 //variaveis
 
-let number1 = "";
+let number1 = 0;
 let number2 = "";
-let operator = " ";
+let operator = "x";
 
 // funções de operações
 function soma(x, y) {
@@ -19,96 +19,65 @@ function multiply(x, y) {
 function division(x, y) {
   return x / y;
 }
-/*
-console.log(soma(2, 3));
-console.log(subtraction(3, 2));
-console.log(multiply(3, 2));
-console.log(division(4, 2));
-*/
-/*passo 3 função de operação pega dois números e realiza uma das funções 
- operate vai mudar dependendo da botão pressionado
-  Se for botão "+" usar a função soma
 
-*/
-
-function operate(x, y) {
-  if (operator == "+") {
-    return soma(x, y);
-  } else if (operator == "-") {
-    return subtraction(x, y);
-  } else if (operator == "X") {
-    return multiply(x, y);
-  } else if (operator == "/") {
-    return division(x, y);
+function operate(x, y, operator) {
+  switch (operator) {
+    case "+":
+      return soma(x, y);
+      break;
+    case "-":
+      return subtraction(x, y);
+      break;
+    case "x":
+      return multiply(x, y);
+      break;
+    case "/":
+      return division(x, y);
+      break;
+    //default:
+    //return "Tu digitou certo, Bruno?";
   }
 }
+console.log(operate(number1, number2, operator));
 
-/*
-Fazer com que cada numero clicado apareça no painel
+// **************************  DOM APPLICATION *****************************
 
-1(declarar variaveis do painel):
+let btnNumeros = document.querySelectorAll(".numero");
+let painelAtual = document.getElementById("painel");
 
-2(variavei dos botões ligadas a cada um)
-
-
-
-
-3(cada vez que eu clicar o valor recebido é enviado para o painel)
-
-
-
-
-*/
-
-let botoesNumeros = document.querySelectorAll(".numero");
-let painel = document.querySelector(".painel");
-let painelSelecionados = document.querySelector(".painelAnterior");
-let operators = document.querySelectorAll(".operator");
-
-botoesNumeros.forEach((numero) => {
-  numero.addEventListener("click", function (e) {
-    enviarDisplay(e.target.textContent);
-    painel.textContent = number1;
+let conteudoDisplay = "";
+//função de mostrar o numero no display "atual" e ja armazenar como numero 2
+function Display(x) {
+  x.addEventListener("click", function () {
+    if (conteudoDisplay.length <= 6) {
+      conteudoDisplay += x.textContent;
+      painelAtual.textContent = conteudoDisplay;
+      number1 = Number(conteudoDisplay);
+    }
   });
-});
-
-operators.forEach((op) => {
-  op.addEventListener("click", function (e) {
-    handleOperator(e.target.textContent);
-    painelSelecionados.textContent = number2 + " " + operator;
-    painel.textContent = number1;
-  });
-});
-
-function handleOperator(op) {
-  operator = op;
-  number2 = number1;
-  number1 = " ";
-  console.log(op);
 }
 
-enviarDisplay = (num) => {
-  if (number1.length <= 5) {
-    number1 += num;
-  }
-  console.log(num);
-};
+btnNumeros.forEach(Display);
 
-let clear = document.querySelector(".clear");
-clear.addEventListener("click", function () {
-  number1 = "";
-  number2 = "";
-  operator = "";
-  painel.textContent = number1;
-  painelSelecionados.textContent = number1;
-});
+//Funções para utilizar as operações da calculadores
 
-let equal = document.querySelector(".equal");
-equal.addEventListener("click", function () {
-  numeroUno = Number(number1);
-  numeroDos = Number(number2);
-  let resultado = operate(numeroDos, numeroUno);
-  number1 = String(resultado);
-  painel.textContent = number1;
-  painelSelecionados.textContent = " ";
-});
+let painelAnterior = document.getElementById("painelAnterior");
+let btnOperator = document.querySelectorAll(".operator");
+
+function operatorsWhenClicked(x) {
+  x.addEventListener("click", function () {
+    if (painelAnterior.textContent == "") {
+      number2 = number1;
+      operator = x.textContent;
+      console.log(x.textContent);
+      painelAnterior.textContent = `${conteudoDisplay}  ${operator}`;
+      conteudoDisplay = "";
+      return operator;
+    } else {
+      number2 = operate(number1, number2, operate);
+      painelAnterior.textContent = `${number2} ${operator}`;
+    }
+  });
+}
+
+btnOperator.forEach(operatorsWhenClicked);
