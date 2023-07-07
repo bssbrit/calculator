@@ -23,16 +23,16 @@ function division(x, y) {
 function operate(x, y, operator) {
   switch (operator) {
     case "+":
-      return soma(x, y);
+      return Math.round(soma(x, y) * 10) / 10;
       break;
     case "-":
-      return subtraction(x, y);
+      return Math.round(subtraction(x, y) * 10) / 10;
       break;
     case "x":
-      return multiply(x, y);
+      return Math.round(multiply(x, y) * 10) / 10;
       break;
     case "/":
-      return division(x, y);
+      return Math.round(division(x, y) * 10) / 10;
       break;
     //default:
     //return "Tu digitou certo, Bruno?";
@@ -69,15 +69,37 @@ function operatorsWhenClicked(x) {
     if (painelAnterior.textContent == "") {
       number2 = number1;
       operator = x.textContent;
-      console.log(x.textContent);
       painelAnterior.textContent = `${conteudoDisplay}  ${operator}`;
       conteudoDisplay = "";
-      return operator;
-    } else {
-      number2 = operate(number1, number2, operate);
+      painelAtual.textContent = "";
+    } else if (
+      painelAnterior.textContent != "" &&
+      painelAtual.textContent == ""
+    ) {
+      operator = x.textContent;
       painelAnterior.textContent = `${number2} ${operator}`;
+    } else {
+      number2 = operate(number2, number1, operator).toFixed(2);
+      operator = x.textContent;
+
+      painelAnterior.textContent = `${number2} ${operator}`;
+      conteudoDisplay = "";
+      painelAtual.textContent = "";
+      number1 = "";
     }
   });
 }
 
 btnOperator.forEach(operatorsWhenClicked);
+
+//Função do botão "="
+
+let equals = document.getElementById("equal");
+
+equals.addEventListener("click", function () {
+  number2 = operate(number2, number1, operator);
+
+  painelAnterior.textContent = number2;
+  painelAtual.textContent = "";
+  conteudoDisplay = "";
+});
