@@ -104,6 +104,7 @@ equals.addEventListener("click", function () {
     painelAnterior.textContent = number2;
     number1 = null;
     numeroMontado = "";
+    painelAtual.textContent = "";
   }
 });
 

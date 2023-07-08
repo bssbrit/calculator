@@ -1,4 +1,81 @@
-#painelAnterior {
-  background-color: aqua;
+body {
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.calculadora {
+  padding: 20px;
+  background-color: antiquewhite;
   border: 1px solid black;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  height: 60vh;
+  gap: 15px;
+}
+.grandePainel {
+  display: flex;
+  flex-direction: column;
+}
+#painelAnterior {
+  height: 8vh;
+  background-color: white;
+
+  text-align: right;
+}
+#painel {
+  background-color: white;
+  height: 8vh;
+  text-align: right;
+  font-size: 25px;
+}
+.botoesDoMeio {
+  display: flex;
+  justify-content: space-around;
+}
+.botoesDoMeio button {
+  background-color: ;
+  height: 40px;
+  width: 60px;
+  font-size: 20px;
+  background-color: #ddd;
+}
+
+.botoesDeBaixo {
+  display: flex;
+  height: 100vh;
+}
+
+.botoesDeBaixo div {
+  height: 100%;
+}
+
+#equal {
+  height: 100%;
+}
+
+.botoesDeNumeros {
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+  gap: 10px;
+  height: 100%;
+}
+#equal {
+  width: 50px;
+  background-color: #4d90fe;
+}
+
+.botoesDeNumeros div {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.botoesDeNumeros div button {
+  width: 55px;
+  height: 100%;
 }
